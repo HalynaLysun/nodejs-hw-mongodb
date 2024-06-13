@@ -2,8 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
 
-import contacts from '../src/services/contacts.json';
-
 export const setupServer = () => {
   const app = express();
 
@@ -16,9 +14,9 @@ export const setupServer = () => {
   app.use(logger);
   app.use(cors());
 
-  app.get('/api/contacts', (req, res) => {
-    res.json(contacts);
-  });
+  //   app.get('/api/contacts', (req, res) => {
+  //     res.json(contacts);
+  //   });
 
   app.use((req, res) => {
     res.status(404).json({
