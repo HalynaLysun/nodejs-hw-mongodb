@@ -21,6 +21,15 @@ export const setupServer = () => {
 
   app.get('/api/contacts', async (req, res) => {
     const contacts = await getAllContacts();
+
+    if (contacts.length === 0) {
+      res.status(404).json({
+        status: 404,
+        message: 'Contacts not found',
+      });
+      return;
+    }
+
     res.status(200).json({
       status: 200,
       message: 'Successfully found contacts!',
@@ -35,7 +44,7 @@ export const setupServer = () => {
     if (!contact) {
       res.status(404).json({
         status: 404,
-        message: 'Student not found',
+        message: 'Contact not found',
       });
       return;
     }
