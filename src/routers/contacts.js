@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  addContactController,
   getAllContactsController,
   getContactByIdController,
 } from '../controllers/contacts.js';
@@ -10,3 +11,5 @@ export const contactsRouter = express.Router();
 contactsRouter.get('/', ctrlWrapper(getAllContactsController));
 
 contactsRouter.get('/:contactId', ctrlWrapper(getContactByIdController));
+
+contactsRouter.post('/', ctrlWrapper(addContactController));
