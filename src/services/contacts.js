@@ -10,7 +10,7 @@ export const getContactById = async (contactId) => {
   return contact;
 };
 
-export const addContact = async (req) => {
-  const contact = await ContactsCollection.create(req.boby);
+export const addContact = async (cont) => {
+  const contact = await ContactsCollection.create(cont);
   return contact;
 };
