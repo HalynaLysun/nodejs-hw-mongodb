@@ -14,3 +14,17 @@ export const addContact = async (cont) => {
   const contact = await ContactsCollection.create(cont);
   return contact;
 };
+
+export const updateContact = async (filter, data, options = {}) => {
+  const result = await ContactsCollection.findOneAndUpdate(filter, data, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
+  if (!result || !result.value) return null;
+  const isNew = Boolean(result?.lastErrorObject?.upserted);
+  return {
+    data: result.value,
+    isNew,
+  };
+};
