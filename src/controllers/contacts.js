@@ -3,8 +3,8 @@ import {
   getAllContacts,
   getContactById,
   addContact,
+  updateContact,
 } from '../services/contacts.js';
-// import { ContactsCollection } from '../db/models/contact.js';
 
 export const getAllContactsController = async (req, res, next) => {
   const contacts = await getAllContacts();
@@ -48,5 +48,20 @@ export const addContactController = async (req, res, next) => {
     status: 201,
     message: 'Successfully created a contact!',
     data: contact,
+  });
+};
+
+export const patchContactController = async (req, res) => {
+  const { contactId } = req.params;
+  const result = await updateContact({ _id: contactId }, req.body);
+
+  if (!result) {
+    throw createHttpError(404, 'Contact not found');
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully patched a contact!',
+    data: result.data,
   });
 };
