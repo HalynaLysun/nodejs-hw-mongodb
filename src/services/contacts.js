@@ -28,3 +28,6 @@ export const updateContact = async (filter, data, options = {}) => {
     isNew,
   };
 };
+
+export const deleteContact = (filter) =>
+  ContactsCollection.findOneAndDelete(filter);
