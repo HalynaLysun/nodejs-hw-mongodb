@@ -14,7 +14,7 @@ export const parsePaginationParams = ({ page, perPage }) => {
   const parsedPerPage = normalizeParams(perPage, 10);
 
   return {
-    parsedPage,
-    parsedPerPage,
+    page: parsedPage,
+    perPage: parsedPerPage,
   };
 };
