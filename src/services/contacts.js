@@ -3,22 +3,23 @@ import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllContacts = async ({ page, perPage }) => {
   const skip = (page - 1) * perPage;
-  const data = await ContactsCollection.find().skip(skip).limit(perPage);
   const totalItems = await ContactsCollection.countDocuments();
+  const data = await ContactsCollection.find().skip(skip).limit(perPage);
 
-  const { totalPages, hasNextPage, hasPrevPage } = calculatePaginationData(
+  const { totalPages, hasNextPage, hasPrevPage } = calculatePaginationData({
     totalItems,
     page,
     perPage,
-  );
+  });
+
   return {
     data,
-    totalItems,
     page,
     perPage,
+    totalItems,
     totalPages,
-    hasNextPage,
     hasPrevPage,
+    hasNextPage,
   };
 };
 
