@@ -7,7 +7,7 @@ import { addUserController } from '../controllers/auth.js';
 export const authRouter = Router();
 
 authRouter.post(
-  '/auth/register',
+  '/register',
   validateBody(userAddSchema),
   ctrlWrapper(addUserController),
 );
