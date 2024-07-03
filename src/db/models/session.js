@@ -23,4 +23,4 @@ const sessionSchema = new Schema(
   { versionKey: false },
 );
 
-export const Session = model('contacts', sessionSchema);
+export const Session = model('session', sessionSchema);

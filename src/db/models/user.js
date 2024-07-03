@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { emailReg } from '../../constans/auth.js';
 
 const userSchema = new Schema(
   {
@@ -8,6 +9,8 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
+      match: emailReg,
+      unique: true,
       required: true,
     },
     password: {
@@ -18,4 +21,4 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
-export const User = model('contacts', userSchema);
+export const User = model('users', userSchema);
