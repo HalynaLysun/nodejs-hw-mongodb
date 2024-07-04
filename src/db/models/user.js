@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { emailReg } from '../../constans/auth.js';
+import { mongooseSaveError, setUpdateSet } from './hooks.js';
 
 const userSchema = new Schema(
   {
@@ -20,5 +21,11 @@ const userSchema = new Schema(
   },
   { versionKey: false, timestamps: true },
 );
+
+userSchema.post('save', mongooseSaveError);
+
+userSchema.pre('findOneAndUpdate', setUpdateSet);
+
+userSchema.post('findOneAndUpdate', mongooseSaveError);
 
 export const User = model('users', userSchema);
