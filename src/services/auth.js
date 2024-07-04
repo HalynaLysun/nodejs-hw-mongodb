@@ -1,5 +1,10 @@
+import bcrypt from 'bcrypt';
 import { User } from '../db/models/user.js';
 
 export const findUser = (filter) => User.findOne(filter);
 
-export const signup = async (data) => await User.create(data);
+export const signup = async (data) => {
+  const { password } = data;
+  const hashPass = await bcrypt.hash(password, 10);
+  return User.create({ ...data, password: hashPass });
+};
