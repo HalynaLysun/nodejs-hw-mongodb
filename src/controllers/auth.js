@@ -1,18 +1,20 @@
 import createHttpError from 'http-errors';
-import { signup } from '../services/auth.js';
+import { findUser, signup } from '../services/auth.js';
 
 export const addUserController = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await findUser({ email });
+  if (user) {
+    next(createHttpError(409, 'Email in use'));
+    return;
+  }
+
   const newUser = await signup(req.body);
 
   const data = {
     name: newUser.name,
     email: newUser.email,
   };
-
-  //   if (!newUser) {
-  //     next(createHttpError(404, 'User not added'));
-  //     return;
-  //   }
 
   res.status(201).json({
     status: 201,

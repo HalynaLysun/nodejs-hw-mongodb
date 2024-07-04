@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { mongooseSaveError, setUpdateSet } from './hooks.js';
 
 const sessionSchema = new Schema(
   {
@@ -22,5 +23,11 @@ const sessionSchema = new Schema(
   },
   { versionKey: false },
 );
+
+sessionSchema.post('save', mongooseSaveError);
+
+sessionSchema.pre('findOneAndUpdate', setUpdateSet);
+
+sessionSchema.post('findOneAndUpdate', mongooseSaveError);
 
 export const Session = model('session', sessionSchema);
