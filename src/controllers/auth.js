@@ -1,6 +1,7 @@
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import { findUser, signup } from '../services/auth.js';
+import { createSession } from '../services/session.js';
 
 export const addUserController = async (req, res, next) => {
   const { email } = req.body;
@@ -38,15 +39,24 @@ export const signinController = async (req, res, next) => {
     return;
   }
 
-  const accessToken = 4688.766676;
-  const refreshToken = 56488.56877;
+  const { accessToken, refreshToken, _id, refreshTokenValidUntil } =
+    await createSession(user._id);
+
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    expires: refreshTokenValidUntil,
+  });
+
+  res.cookie('sessionId', _id, {
+    httpOnly: true,
+    expires: refreshTokenValidUntil,
+  });
 
   res.status(201).json({
     status: 201,
     message: 'Successfully logged in an user!',
-    refreshToken,
     data: {
-      accessToken,
+      accessToken: accessToken,
     },
   });
 };
