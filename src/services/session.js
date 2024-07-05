@@ -5,7 +5,9 @@ import {
 } from '../constans/auth.js';
 import { Session } from '../db/models/session.js';
 
-export const createSession = (userId) => {
+export const createSession = async (userId) => {
+  await Session.deleteOne({ userId });
+
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
 
