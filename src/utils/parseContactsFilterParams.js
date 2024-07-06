@@ -1,4 +1,4 @@
-import { contactType } from '../constans/contacts.js';
+import { typeList } from '../constans/contacts.js';
 
 const parseBoolean = (value) => {
   if (typeof value !== 'string') return;
@@ -11,7 +11,7 @@ const parseBoolean = (value) => {
 };
 
 export const parseContactsFilterParams = ({ contactType, isFavorite }) => {
-  const parsedType = contactType.includes(contactType) ? contactType : null;
+  const parsedType = typeList.includes(contactType) ? contactType : null;
   const parsedFavorite = parseBoolean(isFavorite);
 
   return {

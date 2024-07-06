@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { contactType } from '../../constans/contacts.js';
+import { typeList } from '../../constans/contacts.js';
 import { mongooseSaveError, setUpdateSet } from './hooks.js';
 
 const contactSchema = new Schema(
@@ -22,7 +22,7 @@ const contactSchema = new Schema(
     },
     contactType: {
       type: String,
-      enum: contactType,
+      enum: typeList,
       default: 'personal',
     },
     userId: {
