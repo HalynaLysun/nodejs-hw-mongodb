@@ -1,11 +1,16 @@
 import { Router } from 'express';
-import { userAddSchema, userSigninSchema } from '../validation/auth.js';
+import {
+  requestResetEmailSchema,
+  userAddSchema,
+  userSigninSchema,
+} from '../validation/auth.js';
 import { validateBody } from '../utils/validationBody.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
   addUserController,
   logoutController,
   refreshController,
+  requestResetEmailController,
   signinController,
 } from '../controllers/auth.js';
 
@@ -26,3 +31,9 @@ authRouter.post(
 authRouter.post('/refresh', ctrlWrapper(refreshController));
 
 authRouter.post('/logout', ctrlWrapper(logoutController));
+
+authRouter.post(
+  '/send-reset-email',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
