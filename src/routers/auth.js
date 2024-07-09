@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   requestResetEmailSchema,
+  resetPasswordSchema,
   userAddSchema,
   userSigninSchema,
 } from '../validation/auth.js';
@@ -11,6 +12,7 @@ import {
   logoutController,
   refreshController,
   requestResetEmailController,
+  resetPasswordController,
   signinController,
 } from '../controllers/auth.js';
 
@@ -36,4 +38,10 @@ authRouter.post(
   '/send-reset-email',
   validateBody(requestResetEmailSchema),
   ctrlWrapper(requestResetEmailController),
+);
+
+authRouter.post(
+  '/reset-pwd',
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
 );
