@@ -1,6 +1,12 @@
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
-import { findSession, findUser, signup } from '../services/auth.js';
+
+import {
+  findSession,
+  findUser,
+  requestResetToken,
+  signup,
+} from '../services/auth.js';
 import { createSession, deleteSession } from '../services/session.js';
 
 export const addUserController = async (req, res, next) => {
@@ -110,21 +116,11 @@ export const logoutController = async (req, res, next) => {
   res.status(204).send();
 };
 
-export const requestResetEmailController = async (req, res, next) => {
-  const { email } = req.body;
-  const user = await findUser({ email });
-  if (!user) {
-    return next(createHttpError(401, 'User not found'));
-  }
-
-  const data = {
-    name: user.name,
-    email: user.email,
-  };
-
-  res.status(200).json({
-    status: 200,
-    message: 'Reset password email has been successfully sent',
-    data,
-  });
+export const requestResetEmailController = async (req, res) => {
+  await requestResetToken(req.body.email),
+    res.status(200).json({
+      status: 200,
+      message: 'Reset password email has been successfully sent',
+      data: {},
+    });
 };
