@@ -124,3 +124,8 @@ export const requestResetEmailController = async (req, res) => {
       data: {},
     });
 };
+
+export const resetPasswordController = async (req, res, next) => {
+  const { token } = req.body;
+  console.log(token);
+};
