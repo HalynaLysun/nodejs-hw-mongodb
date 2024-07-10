@@ -5,6 +5,7 @@ import {
   findSession,
   findUser,
   requestResetToken,
+  resetPassword,
   signup,
 } from '../services/auth.js';
 import { createSession, deleteSession } from '../services/session.js';
@@ -125,7 +126,12 @@ export const requestResetEmailController = async (req, res) => {
     });
 };
 
-export const resetPasswordController = async (req, res, next) => {
-  const { token } = req.body;
-  console.log(token);
+export const resetPasswordController = async (req, res) => {
+  // const { token, password } = req.body;
+  await resetPassword(req.body);
+  res.status(200).json({
+    status: 200,
+    message: 'Password has been successfully reset',
+    data: {},
+  });
 };
