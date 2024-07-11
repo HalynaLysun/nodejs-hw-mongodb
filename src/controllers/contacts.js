@@ -10,6 +10,7 @@ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseContactsFilterParams } from '../utils/parseContactsFilterParams.js';
 import { fieldList } from '../constans/fieldList.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const getAllContactsController = async (req, res, next) => {
   const { query } = req;
@@ -58,8 +59,14 @@ export const getContactController = async (req, res, next) => {
 
 export const addContactController = async (req, res, next) => {
   const { _id: userId } = req.user;
-  console.log(req.file);
-  const contact = await addContact({ ...req.body, userId });
+
+  let photo = '';
+
+  if (req.file) {
+    photo = await saveFileToUploadDir(req.file, 'photo');
+  }
+
+  const contact = await addContact({ ...req.body, userId, photo });
 
   if (!contact) {
     next(createHttpError(404, 'Contact not added'));
