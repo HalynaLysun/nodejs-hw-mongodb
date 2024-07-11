@@ -58,6 +58,7 @@ export const getContactController = async (req, res, next) => {
 
 export const addContactController = async (req, res, next) => {
   const { _id: userId } = req.user;
+  console.log(req.file);
   const contact = await addContact({ ...req.body, userId });
 
   if (!contact) {
