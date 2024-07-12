@@ -11,6 +11,8 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseContactsFilterParams } from '../utils/parseContactsFilterParams.js';
 import { fieldList } from '../constans/fieldList.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { sendFileToCloud } from '../utils/sendFileToCloud.js';
+import { env } from '../utils/env.js';
 
 export const getAllContactsController = async (req, res, next) => {
   const { query } = req;
@@ -63,7 +65,11 @@ export const addContactController = async (req, res, next) => {
   let photo = '';
 
   if (req.file) {
-    photo = await saveFileToUploadDir(req.file, 'photo');
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photo = await sendFileToCloud(req.file, 'photo');
+    } else {
+      photo = await saveFileToUploadDir(req.file, 'photo');
+    }
   }
 
   const contact = await addContact({ ...req.body, userId, photo });
@@ -86,7 +92,11 @@ export const patchContactController = async (req, res) => {
   let photo = '';
 
   if (req.file) {
-    photo = await saveFileToUploadDir(req.file, 'photo');
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photo = await sendFileToCloud(req.file, 'photo');
+    } else {
+      photo = await saveFileToUploadDir(req.file, 'photo');
+    }
   }
 
   const { contactId } = req.params;
