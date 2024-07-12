@@ -22,6 +22,5 @@ export const contactUpdateSchema = Joi.object({
     .min(3)
     .max(20)
     .valid(...typeList),
-  userId: Joi.string().required(),
   photo: Joi.string(),
 });
