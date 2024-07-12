@@ -9,5 +9,6 @@ export const saveFileToUploadDir = async (file, filePath) => {
   await fs.rename(file.path, newPath);
 
   const domain = env('APP_DOMAIN');
-  return `${domain}/public/${filePath}/${file.filename}`;
+
+  return `${domain}/${filePath}/${file.filename}`;
 };
