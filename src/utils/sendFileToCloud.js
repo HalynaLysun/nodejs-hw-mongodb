@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
-
+import fs from 'node:fs/promises';
 import { env } from '../utils/env.js';
 
 const cloud_name = env('CLOUD_NAME');
@@ -16,6 +16,8 @@ export const sendFileToCloud = async (file, folder) => {
   const res = await cloudinary.uploader.upload(file.path, {
     folder,
   });
+
+  await fs.unlink(file.path);
 
   return res.url;
 };
