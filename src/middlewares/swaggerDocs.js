@@ -7,6 +7,7 @@ import { SWAGGER_PATH } from '../constans/contacts.js';
 export const swaggerDocs = () => {
   try {
     const swaggerDoc = JSON.parse(fs.readFileSync(SWAGGER_PATH).toString());
+    console.log(SWAGGER_PATH, swaggerDoc);
     return [...swaggerUI.serve, swaggerUI.setup(swaggerDoc)];
   } catch (err) {
     return (req, res, next) =>
