@@ -11,8 +11,8 @@ tags:
    - name: Contacts
     description: Operations about contacts.
 servers:
-  - url: http://localhost:3000
-  - url: https://nodejs-hw-mongodb-5-u2px.onrender.com
+  - url: <http://localhost:3000>
+  - url: <https://nodejs-hw-mongodb-5-u2px.onrender.com>
 paths:
   /contacts/{id}:
     get:
