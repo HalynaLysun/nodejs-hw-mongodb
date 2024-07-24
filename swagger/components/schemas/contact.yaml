@@ -11,15 +11,15 @@ properties:
   name:
     description: "Contact's name"
     type: string
-    example: 'John Doe'
+    example: 'Yurii Kachan'
   phoneNumber:
     description: "Contact's phoneNumber"
     type: string
-    example: 0685720854
+    example: 068 000 00
   email:
     description: "Contact's email"
     type: string
-    example: galina.lysun@ukr.net
+    example: test@gmail.com
   isFavourite:
     description: 'Is the contact favorite or no'
     type: boolean
@@ -30,6 +30,6 @@ properties:
     enum: ['work', 'home', 'personal']
     example: home
   photo:
-    description: "Link to contact's photo"
+    description: 'Photo'
     type: string
-    example: <https://res.cloudinary.com/uqwgdu/image/upload/image.png>
+    example: https://res.cloudinary.com/uqwgdu/image/upload/test.png
